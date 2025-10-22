@@ -11,9 +11,9 @@ from sqlalchemy.ext.asyncio import (
 )
 from testcontainers.mysql import MySqlContainer
 
-from app.main import app
-from app.db import Base
-from app.dependencies import get_session
+from fast.main import app
+from fast.db import Base
+from fast.dependencies import get_session
 
 import os
 

@@ -37,7 +37,38 @@ async def lifespan(app: FastAPI):
     await engine.dispose()
 
 
-app = FastAPI()
+from fastapi import Depends, HTTPException
+from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Boolean, Text, select
+from sqlalchemy.ext.asyncio import AsyncSession
+from fast.db import Base
+from fast.dependencies import get_session
+
+
+class TodoORM(Base):
+    __tablename__ = "todo"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(255), nullable=False)
+    description = Column(Text, default="")
+    completed = Column(Boolean, default=False, nullable=False)
+
+
+class Todo(BaseModel):
+    title: str
+    description: str = ""
+    completed: bool = False
+
+
+class TodoOut(Todo):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+TODO_NOT_FOUND = "Todo not found"
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/")
@@ -46,6 +77,24 @@ async def root():
     own_string = "This is my own string."
     hello_result = hello()
     return {"message": f"{own_string} {hello_result}"}
+
+
+# Endpoint: Get all todos
+@app.get("/todos", response_model=list[TodoOut])
+async def get_todos(session: AsyncSession = Depends(get_session)):
+    result = await session.execute(select(TodoORM))
+    todos = result.scalars().all()
+    return [TodoOut.from_orm(todo) for todo in todos]
+
+
+# Endpoint: Create a new todo
+@app.post("/todos", response_model=TodoOut)
+async def create_todo(todo: Todo, session: AsyncSession = Depends(get_session)):
+    todo_obj = TodoORM(**todo.dict())
+    session.add(todo_obj)
+    await session.commit()
+    await session.refresh(todo_obj)
+    return TodoOut.from_orm(todo_obj)
 
 
 # To run with uvicorn: uvicorn main:app --reload
