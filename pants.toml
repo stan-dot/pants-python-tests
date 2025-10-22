@@ -43,8 +43,8 @@ search_path = ["/usr/bin/python3", "<PYENV>"]
 [python-infer]
 use_rust_parser = true
 
-[python.resolves]
-pytest = "3rdparty/python/pytest-lock.txt"
+# [python.resolves]
+# pytest = "3rdparty/python/pytest-lock.txt"
 
-[pytest]
-install_from_resolve = "pytest"
+# [pytest]
+# install_from_resolve = "pytest"
