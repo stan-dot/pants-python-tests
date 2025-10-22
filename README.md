@@ -21,3 +21,6 @@ to setup the tests one needs
 3. `pants run ::` is the way to go there OR a path
 4. do not need that, `package_test` seems good enough
 5. done that, just Docker integration is misaligned, maybe need to add more pants backends(?)
+
+let's try this more
+<https://github.com/pantsbuild/pants/issues/14048>
