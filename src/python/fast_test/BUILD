@@ -18,7 +18,6 @@ python_tests(
 
 python_tests(
     name="easy_tests",
-    sources=["test_easy.py"],
     dependencies=[
         ":lib",
         "src/python/fast:main",
