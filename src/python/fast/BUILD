@@ -13,5 +13,5 @@ python_sources(
 pex_binary(
     name="main",
     entry_point="main.py",
-    dependencies=[":reqs"],
+    dependencies=[":reqs", "src/python/mylib:mylib"],
 )

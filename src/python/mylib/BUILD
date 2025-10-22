@@ -6,8 +6,6 @@ python_sources(
 )
 
 
-
-
 python_distribution(
     name="dist",
     dependencies=[":lib"],
