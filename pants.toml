@@ -14,8 +14,7 @@ backend_packages.add = [
 enabled = false
 
 [source]
-# The Python source root is the repo root. See https://www.pantsbuild.org/docs/source-roots.
-root_patterns = ["/"]
+root_patterns = ["/src/python"]
 
 [python]
 # The default interpreter constraints for code in this repo. Individual targets can override
@@ -43,3 +42,9 @@ search_path = ["/usr/bin/python3", "<PYENV>"]
 
 [python-infer]
 use_rust_parser = true
+
+[python.resolves]
+pytest = "3rdparty/python/pytest-lock.txt"
+
+[pytest]
+install_from_resolve = "pytest"
