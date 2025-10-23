@@ -38,3 +38,8 @@ with podman you can use:
 how to set up debugger correctly?
 
 pants promises support, [here](https://www.pantsbuild.org/blog/2022/10/26/pants-2-14#easier-interactive-debugging-for-python-in-vs-code-using-the-dap-protocol).
+
+there should be something here
+<https://github.com/pantsbuild/pants/issues?q=debugger>
+
+`pants test --debug-adapter src/python/fast_test/test_fast.py` returns a localhost url, how to connect to it from vscode though to see the breakpoints correctly?
