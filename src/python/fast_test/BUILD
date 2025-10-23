@@ -9,7 +9,12 @@ python_sources(
     name="lib",
 )
 
-python_requirements(source="pyproject.toml", name="requirements")
+python_requirements(source="pyproject.toml", name="requirements",
+    overrides={
+        "pytest": {"dependencies": [":requirements#cryptography"]}
+    },
+)
+
 # This target sets the metadata for all the Python test files in this directory.
 python_tests(
     name="test",
