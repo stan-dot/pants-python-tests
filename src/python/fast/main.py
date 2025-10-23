@@ -1,18 +1,18 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, RedirectResponse
-from sqlalchemy.ext.asyncio import AsyncEngine
+from mylib.main import hello
+from pydantic import BaseModel
+from sqlalchemy import Boolean, Column, Integer, String, Text, select
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from fast.config import Settings
-from fast.db import get_engine_and_sessionmaker
-
-
-from mylib.main import hello
+from fast.db import Base, get_engine_and_sessionmaker
+from fast.dependencies import get_session
 
 engine: AsyncEngine | None = None
 AsyncSessionLocal: sessionmaker | None = None
@@ -35,14 +35,6 @@ async def lifespan(app: FastAPI):
     yield
 
     await engine.dispose()
-
-
-from fastapi import Depends, HTTPException
-from pydantic import BaseModel
-from sqlalchemy import Column, Integer, String, Boolean, Text, select
-from sqlalchemy.ext.asyncio import AsyncSession
-from fast.db import Base
-from fast.dependencies import get_session
 
 
 class TodoORM(Base):
@@ -90,7 +82,7 @@ async def get_todos(session: AsyncSession = Depends(get_session)):
 # Endpoint: Create a new todo
 @app.post("/todos", response_model=TodoOut)
 async def create_todo(todo: Todo, session: AsyncSession = Depends(get_session)):
-    todo_obj = TodoORM(**todo.dict())
+    todo_obj = TodoORM(**todo.model_dump())
     session.add(todo_obj)
     await session.commit()
     await session.refresh(todo_obj)

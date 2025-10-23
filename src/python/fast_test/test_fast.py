@@ -1,9 +1,6 @@
-from datetime import datetime
 import pytest
-from httpx import AsyncClient
 
 
-@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_create_and_list_todos(async_client):
     # Create a new todo

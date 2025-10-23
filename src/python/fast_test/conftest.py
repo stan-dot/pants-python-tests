@@ -1,4 +1,3 @@
-
 from collections.abc import AsyncGenerator, Generator
 from typing import Literal
 
@@ -18,12 +17,12 @@ from fast.dependencies import get_session
 import os
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def anyio_backend() -> Literal["asyncio"]:
     return "asyncio"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def mysql_container(
     anyio_backend: Literal["asyncio"],
 ) -> Generator[MySqlContainer, None, None]:
@@ -37,7 +36,7 @@ def mysql_container(
         yield mysql
 
 
-@pytest.fixture
+@pytest.fixture()
 async def async_session(
     mysql_container: MySqlContainer,
 ) -> AsyncGenerator[AsyncSession, None]:
@@ -63,7 +62,7 @@ async def async_session(
     await async_engine.dispose()
 
 
-@pytest.fixture
+@pytest.fixture()
 async def async_client(
     async_session: AsyncSession,
 ) -> AsyncGenerator[AsyncClient, None]:
