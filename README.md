@@ -32,3 +32,9 @@ if there is a 'docker error', check if the service is running.
 with podman you can use:
 `systemctl --user enable --now podman.socket`
 `systemctl --user status podman.socket`
+
+## new questions
+
+how to set up debugger correctly?
+
+pants promises support, [here](https://www.pantsbuild.org/blog/2022/10/26/pants-2-14#easier-interactive-debugging-for-python-in-vs-code-using-the-dap-protocol).
