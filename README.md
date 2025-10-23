@@ -24,3 +24,11 @@ to setup the tests one needs
 
 let's try this more
 <https://github.com/pantsbuild/pants/issues/14048>
+
+## Troubleshooting
+
+if there is a 'docker error', check if the service is running.
+
+with podman you can use:
+`systemctl --user enable --now podman.socket`
+`systemctl --user status podman.socket`
