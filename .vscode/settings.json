@@ -1,0 +1,9 @@
+
+{
+  "python.analysis.extraPaths": ["src/python"],
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--config=build-support/flake8/.flake8"],
+  "rust-analyzer.linkedProjects": ["src/rust/Cargo.toml"]
+}
