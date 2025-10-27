@@ -3,6 +3,8 @@
     {
       "name": "Python Debugger: Remote Attach",
       "type": "debugpy",
+      "justMyCode": false,
+      "logToFile": true,
       "request": "attach",
       "connect": {
         "host": "127.0.0.1",
