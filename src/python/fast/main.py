@@ -4,11 +4,10 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, RedirectResponse
 from mylib.main import hello
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy import Boolean, Column, Integer, String, Text, select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from fast.config import Settings
 from fast.db import Base, get_engine_and_sessionmaker
@@ -54,8 +53,7 @@ class Todo(BaseModel):
 class TodoOut(Todo):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 TODO_NOT_FOUND = "Todo not found"

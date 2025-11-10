@@ -16,6 +16,7 @@ async def sample_todo(async_session):
     return todo
 
 
+@pytest.mark.asyncio
 async def test_create_and_list_todos(async_client):
     # Create a new todo
     todo_data = {"title": "Test Todo", "description": "A test todo", "completed": False}

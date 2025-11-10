@@ -1,14 +1,4 @@
 
-python_requirement(
-  name="shared-dependencies",
-  requirements=[
-    "httpx==0.28.1",
-  "sqlalchemy>=2.0.40",
-  "cryptography>=46.0.3"
-  ]
-)
-
-
 
 python_requirement(
   name="test-dependencies",
@@ -28,10 +18,9 @@ python_requirement(
   "uvicorn[standard]==0.38.0",
   "sqlalchemy[asyncio]==2.0.41",
   "aiomysql==0.3.2",
-  "cryptography>=46.0.3",
+  # "cryptography>=46.0.3",
   "pydantic==2.12.3",
   "pydantic-settings==2.10.1",
   "loguru==0.7.0",
-  "httpx==0.28.1",
   ]
 )
