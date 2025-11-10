@@ -36,7 +36,7 @@ def mysql_container(
         yield mysql
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def async_session(
     mysql_container: MySqlContainer,
 ) -> AsyncGenerator[AsyncSession, None]:
@@ -62,7 +62,7 @@ async def async_session(
     await async_engine.dispose()
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def async_client(
     async_session: AsyncSession,
 ) -> AsyncGenerator[AsyncClient, None]:

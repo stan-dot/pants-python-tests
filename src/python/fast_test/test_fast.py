@@ -1,7 +1,8 @@
 import pytest
+import pytest_asyncio
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def sample_todo(async_session):
     # Import the ORM model here to avoid circular imports
     from fast.main import TodoORM

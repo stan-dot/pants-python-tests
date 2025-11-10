@@ -9,18 +9,14 @@ python_sources(
     name="lib",
 )
 
-python_requirements(source="pyproject.toml", name="requirements")
 
 # This target sets the metadata for all the Python test files in this directory.
 python_tests(
     name="test",
-    dependencies=[":lib", ":requirements", "src/python/fast:main"],
-)
-
-python_tests(
-    name="easy_tests",
     dependencies=[
         ":lib",
+        "src/python/third_party:shared-dependencies",
+        "src/python/third_party:test-dependencies",
         "src/python/fast:main",
     ],
 )

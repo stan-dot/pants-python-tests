@@ -2,7 +2,6 @@
 # Licensed under the Apache License, Version 2.0 (see LICENSE).
 #
 
-python_requirements(source="pyproject.toml", name="reqs")
 
 
 python_sources(
@@ -12,5 +11,10 @@ python_sources(
 pex_binary(
     name="main",
     entry_point="main.py",
-    dependencies=[":reqs", "src/python/mylib:mylib"],
+    dependencies=[
+        ":reqs",
+        "src/python/third_party:shared-dependencies",
+        "src/python/third_party:api-dependencies",
+        "src/python/mylib:mylib"
+     ],
 )

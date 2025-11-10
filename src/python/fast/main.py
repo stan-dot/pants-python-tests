@@ -76,7 +76,7 @@ async def root():
 async def get_todos(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(TodoORM))
     todos = result.scalars().all()
-    return [TodoOut.from_orm(todo) for todo in todos]
+    return [TodoOut.model_validate(todo) for todo in todos]
 
 
 # Endpoint: Create a new todo
@@ -86,7 +86,7 @@ async def create_todo(todo: Todo, session: AsyncSession = Depends(get_session)):
     session.add(todo_obj)
     await session.commit()
     await session.refresh(todo_obj)
-    return TodoOut.from_orm(todo_obj)
+    return TodoOut.model_validate(todo_obj)
 
 
 # To run with uvicorn: uvicorn main:app --reload
